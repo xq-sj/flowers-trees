@@ -27,10 +27,5 @@ import javax.annotation.Resource;
 @Api(tags = "用户模块")
 public class UserController {
 
-    @GetMapping("/list")
-    @ApiOperation("测试")
-    public ApiResult<?> test() {
-        return ApiResult.success();
-    }
 
 }
