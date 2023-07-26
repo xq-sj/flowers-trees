@@ -27,5 +27,8 @@ import javax.annotation.Resource;
 @Api(tags = "用户模块")
 public class UserController {
 
+    public void test() {
+        System.out.println("测试分支");
+    }
 
 }
