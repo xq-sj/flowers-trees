@@ -114,6 +114,16 @@ public class ApiResult<T> implements Serializable {
         return success(resultInfo, null);
     }
 
+    /**
+     * 数据为空，状态码默认200返回信息默认“操作成功”
+     *
+     * @param <T> 数据类型
+     * @return 返回结果
+     */
+    public static <T> ApiResult<T> success() {
+        return success(ResultInfo.SUCCESS);
+    }
+
     // ======================================================================================
 
     // 失败结果
@@ -186,6 +196,16 @@ public class ApiResult<T> implements Serializable {
      */
     public static <T> ApiResult<T> error(ResultInfo resultInfo) {
         return success(resultInfo, null);
+    }
+
+    /**
+     * 数据为空，状态码默认200返回信息默认“操作成功”
+     *
+     * @param <T> 数据类型
+     * @return 返回结果
+     */
+    public static <T> ApiResult<T> error() {
+        return success(ResultInfo.ERROR);
     }
 
 }
