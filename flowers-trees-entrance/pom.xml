@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sj</groupId>
+    <artifactId>flowers-trees</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>flowers-trees-entrance</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>flowers-trees-entrance</name>
+  <description>flowers-trees-entrance</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.sj</groupId>
+      <artifactId>flowers-trees-web</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.7.9</version>
+        <configuration>
+          <mainClass>com.sj.FlowersTreesEntranceApplication</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.sj</groupId>
+    <artifactId>flowers-trees</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>flowers-trees-mapper</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>flowers-trees-mapper</name>
+  <description>flowers-trees-mapper</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.sj</groupId>
+      <artifactId>flowers-trees-common</artifactId>
+    </dependency>
+  </dependencies>
+
+
+</project>
