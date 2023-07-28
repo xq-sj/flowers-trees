@@ -29,16 +29,33 @@ public enum ResultInfo {
      */
     // 操作失败
     ERROR(400, "操作失败"),
-    // 资源未找到
-    NOT_FONT(404, "请求资源未找到"),
-    // token失效 或是 假冒token
-    TOKEN_ERROR(413, "您的登录信息已过期，请重新登录"),
     // 没有登录
     NO_LOGIN(401, "您还未登录，请先登录"),
+    // 权限不足
+    FORBIDDEN(403, "权限不足"),
+    // 资源未找到
+    NOT_FONT(404, "请求资源未找到"),
+    // token过期
+    TOKEN_OVERDUE(412, "您的认证已过期，请重新登录"),
+    // token令牌错误
+    TOKEN_ERROR(413, "认证错误，错误的令牌"),
+    // 用户信息异常
+    USER_INFO_ERROR(415, "用户信息异常"),
     // 资源已存在
-    ALREADY_EXIST(417,"请勿重复添加"),
+    ALREADY_EXIST(417, "请勿重复添加"),
+    // 用户未注册
+    USER_NO_REGISTER(418, "未找到该用户，快去注册一个吧！"),
+    // 用户未注册
+    PASSWORD_ERROR(419, "密码错误，再想想呢~"),
+    // 账号异地登录被强制下线
+    REMOTE_LOGIN(420, "您的账号在异地登录，请重新认证~"),
+    // 账号禁用
+    FORBIDDEN_USER(421, "您的账号已被禁用，反省一下找管理员解释吧~"),
+
     // 服务器未知错误
-    SERVER_ERROR(500, "服务器异常，请联系管理员");
+    SERVER_ERROR(500, "服务器异常，请联系管理员"),
+
+    ;
 
     private Integer code;
 

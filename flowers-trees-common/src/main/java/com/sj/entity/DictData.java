@@ -45,6 +45,9 @@ public class DictData implements Serializable {
     @ApiModelProperty("字典标签")
     private String dictLabel;
 
+    @ApiModelProperty("字典项编码")
+    private String dictDataCode;
+
     @ApiModelProperty("字典值")
     private String dictValue;
 
@@ -54,8 +57,11 @@ public class DictData implements Serializable {
     @ApiModelProperty("类型属性")
     private String typeClass;
 
+    @ApiModelProperty("备注")
+    private String remark;
+
     @ApiModelProperty("是否默认[1：是，0：否]")
-    private Integer isDefualt;
+    private Integer isDefault;
 
     @ApiModelProperty("数据状态[1：启用，0：禁用]")
     private Integer status;

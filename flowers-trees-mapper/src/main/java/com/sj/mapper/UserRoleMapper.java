@@ -3,6 +3,7 @@ package com.sj.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sj.entity.UserRole;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -15,4 +16,13 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserRoleMapper extends BaseMapper<UserRole> {
 
+
+    /**
+     * 根据用户id获取当前用户角色id
+     *
+     * @param id 用户id
+     * @return 角色id
+     */
+    @Select("select role_id from user_role where user_id = #{id}")
+    Integer getRoleIdByUserId(Integer id);
 }

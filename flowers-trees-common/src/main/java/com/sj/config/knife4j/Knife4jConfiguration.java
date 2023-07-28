@@ -4,8 +4,8 @@ import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,7 +16,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 
 /**
  * @author xiaoqi
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 @Slf4j
 @Configuration
 @EnableSwagger2WebMvc
-public class Knife4jConfiguration {
+public class Knife4jConfiguration implements WebMvcConfigurer {
 
     /**
      * 【重要】指定Controller包路径
@@ -97,5 +96,13 @@ public class Knife4jConfiguration {
                 .contact(new Contact(contactName, contactUrl, contactEmail))
                 .version(version)
                 .build();
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**", "/img.icons/**", "/swagger-resources/**", "/v2/api-docs").addResourceLocations("classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/static/swagger/");
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
 }

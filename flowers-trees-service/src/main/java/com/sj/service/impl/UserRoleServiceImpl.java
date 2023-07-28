@@ -6,6 +6,8 @@ import com.sj.mapper.UserRoleMapper;
 import com.sj.service.UserRoleService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * 用户角色关联表 服务实现类
@@ -17,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
 
+    @Resource
+    private UserRoleMapper userRoleMapper;
+
+    @Override
+    public Integer getRoleIdByUserId(Integer id) {
+        return userRoleMapper.getRoleIdByUserId(id);
+    }
 }

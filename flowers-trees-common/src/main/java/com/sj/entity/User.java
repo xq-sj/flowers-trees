@@ -83,6 +83,18 @@ public class User implements Serializable {
     @ApiModelProperty("星座")
     private String constellation;
 
+    @ApiModelProperty("最后登录时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime lastLogin;
+
+    @ApiModelProperty("最后登录ip")
+    private String lastIp;
+
+    @ApiModelProperty("注册ip")
+    private String registerIp;
+
     @ApiModelProperty("状态[1：启用，0：禁用]")
     private Integer status;
 

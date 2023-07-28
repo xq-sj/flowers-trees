@@ -1,7 +1,10 @@
 package com.sj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sj.entity.Menu;
 import com.sj.entity.RoleMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.sj.entity.RoleMenu;
  * @since 2023-07-26
  */
 public interface RoleMenuService extends IService<RoleMenu> {
+
 
 }
