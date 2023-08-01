@@ -12,7 +12,9 @@ import com.sj.constant.CommonConst;
 import com.sj.constant.ConfigConst;
 import com.sj.entity.User;
 import com.sj.entity.UserRole;
+import com.sj.model.vo.ForgetVo;
 import com.sj.model.vo.RegisterVo;
+import com.sj.model.vo.SmsLoginVo;
 import com.sj.service.UserRoleService;
 import com.sj.service.UserService;
 import com.sj.utils.jwt.JwtUtils;
@@ -25,6 +27,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -225,6 +228,82 @@ public class UserController {
             return ApiResult.error("用户名或手机号已存在");
         }
         return ApiResult.error("注册失败");
+    }
+
+
+    @PostMapping("/forget")
+    @ApiOperation("忘记密码")
+    public ApiResult<?> forget(@Valid @RequestBody ForgetVo forgetVo) {
+        // 首先判断当前手机号是否注册
+        Long count = userService.getUserCountByPhone(forgetVo.getPhone());
+        if (count == 0) {
+            return ApiResult.error("当前手机号未注册");
+        }
+        // 然后判断是否获取验证码
+        boolean flag = redisUtils.hHasKey(thirdPartyConfig.getSmsForgetKey(), forgetVo.getPhone());
+        if (!flag) {
+            return ApiResult.error("请先获取验证码");
+        }
+        // 判断两次密码是否一致
+        if (!StrUtil.equals(forgetVo.getPassword(), forgetVo.getRePassword())) {
+            return ApiResult.error("两次密码不一致");
+        }
+        // 判断验证码是否正确
+        String code = redisUtils.hget(thirdPartyConfig.getSmsForgetKey(), forgetVo.getPhone()).toString();
+        if (!StrUtil.equals(code, forgetVo.getCode())) {
+            return ApiResult.error("验证码错误");
+        }
+        // 修改密码
+        User user = new User();
+        user.setPassword(bCryptPasswordEncoder.encode(forgetVo.getPassword()));
+        boolean result = userService.lambdaUpdate().eq(User::getPhone, forgetVo.getPhone()).update(user);
+        if (result) {
+            // 删除当前验证码
+            redisUtils.hdel(thirdPartyConfig.getSmsForgetKey(), forgetVo.getPhone());
+            return ApiResult.success("密码找回成功");
+        }
+        return ApiResult.error();
+    }
+
+    @PostMapping("/login")
+    @ApiOperation("验证码登录")
+    public ApiResult<LoginUser> login(@Valid @RequestBody SmsLoginVo smsLoginVo, HttpServletRequest request) {
+        // 首先判断当前手机号是否注册
+        Long userCountByPhone = userService.getUserCountByPhone(smsLoginVo.getPhone());
+        if (userCountByPhone == 0) {
+            return ApiResult.error("改手机号未注册");
+        }
+        // 判断是否获取验证码
+        boolean flag = redisUtils.hHasKey(thirdPartyConfig.getSmsLoginKey(), smsLoginVo.getPhone());
+        if (!flag) {
+            return ApiResult.error("请先获取验证码");
+        }
+        // 判断验证码是否正确
+        String code = redisUtils.hget(thirdPartyConfig.getSmsLoginKey(), smsLoginVo.getPhone()).toString();
+        if (!StrUtil.equals(code, smsLoginVo.getCode())) {
+            return ApiResult.error("验证码错误");
+        }
+        // 登录
+        User user = userService.lambdaQuery().eq(User::getPhone, smsLoginVo.getPhone()).one();
+        user.setLastLogin(LocalDateTime.now());
+        user.setLastIp(mineUtils.getIpAddress(request));
+        userService.updateById(user);
+        // 生成token
+        String token = jwtUtils.generateToken(user.getId() + CommonConst.SHORT_TRANSVERSE_LINE + user.getUsername());
+        user.setPassword(null);
+        // 获取权限
+        String authorities = userService.getAuthorities(user.getId(), user.getUsername());
+        LoginUser loginUser = LoginUser.builder()
+                .authority(authorities)
+                .token(token)
+                .user(user)
+                .build();
+        String loginUserJson = JSONUtil.toJsonStr(loginUser);
+        // 将当前用户存入redis
+        redisUtils.hset(userConfig.getLoginUserKey(), user.getUsername(), loginUserJson, jwtConfig.getExpire());
+        // 将当前验证码从缓存中删除
+        redisUtils.hdel(thirdPartyConfig.getSmsLoginKey(), smsLoginVo.getPhone());
+        return ApiResult.success(ResultInfo.LOGIN_SUCCESS, loginUser);
     }
 
     @Resource

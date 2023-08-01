@@ -77,7 +77,7 @@ public class SecurityConfig {
     @Resource
     public JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private String[] URL_WHITE_LIST = {"/login/**", "/logout/**", "/user/register", "/favicon.ico", "/user/test", "/user/code"};
+    private String[] URL_WHITE_LIST = {"/login/**", "/logout/**", "/user/register", "/favicon.ico", "/user/test", "/user/code","/user/forget","/user/login"};
 
     private String[] RESOURCE_WHITE_LIST = {"/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**", "/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**"};
 
@@ -87,8 +87,8 @@ public class SecurityConfig {
         return http
                 // 权限设置
                 .authorizeRequests(authorize -> authorize
-                        .antMatchers(URL_WHITE_LIST).anonymous()
-                        .antMatchers(RESOURCE_WHITE_LIST).anonymous()
+                        .antMatchers(URL_WHITE_LIST).permitAll()
+                        .antMatchers(RESOURCE_WHITE_LIST).permitAll()
                         .anyRequest().authenticated())
                 // 登录设置
                 .formLogin(conf -> conf
