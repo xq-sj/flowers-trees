@@ -28,6 +28,7 @@
     <lombok.version>1.18.26</lombok.version>
     <knife4j.version>4.0.0</knife4j.version>
     <jwt.version>0.9.1</jwt.version>
+    <hibernate.validator.version>6.2.5.Final</hibernate.validator.version>
   </properties>
 
   <modules>
@@ -75,6 +76,11 @@
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt</artifactId>
         <version>${jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate.validator.version}</version>
       </dependency>
       <dependency>
         <groupId>com.sj</groupId>

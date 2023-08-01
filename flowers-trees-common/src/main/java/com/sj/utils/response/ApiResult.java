@@ -92,6 +92,18 @@ public class ApiResult<T> implements Serializable {
     }
 
     /**
+     * 状态码默认200，指定返回信息和数据
+     *
+     * @param message 返回信息
+     * @param data    数据
+     * @param <T>     数据类型
+     * @return 返回结果信息
+     */
+    public static <T> ApiResult<T> success(String message, T data) {
+        return success(ResultInfo.SUCCESS.getCode(), message, data);
+    }
+
+    /**
      * 状态码默认200，返回信息默认 “操作成功” 指定数据方法
      *
      * @param data 返回数据

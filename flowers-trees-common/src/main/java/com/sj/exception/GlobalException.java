@@ -5,6 +5,7 @@ import com.sj.utils.response.ResultInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,9 +25,20 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @Slf4j
 public class GlobalException {
 
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public ApiResult<?> handler(MethodArgumentNotValidException e) {
+        FieldError fieldError = e.getBindingResult().getFieldError();
+        if (fieldError == null) {
+            log.error("请求参数异常，{}", e.getMessage());
+            return ApiResult.error(e.getMessage());
+        }
+        log.error("请求参数异常，{}", fieldError.getDefaultMessage());
+        return ApiResult.error(fieldError.getDefaultMessage());
+    }
+
     @ExceptionHandler(value = CustomException.class)
     public ApiResult<?> handler(CustomException e) {
-        log.error("自定义异常", e.getMessage());
+        log.error("自定义异常，{}", e.getMessage());
         if (e.getResultInfo() != null) {
             return ApiResult.error(e.getResultInfo());
         }
@@ -55,12 +67,6 @@ public class GlobalException {
     public ApiResult<?> handlerNotFoundException(NoHandlerFoundException e) {
         log.error("资源未找到，{}", e.getMessage());
         return ApiResult.error(ResultInfo.NOT_FONT);
-    }
-
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ApiResult<?> handler(MethodArgumentNotValidException e) {
-        log.error("方法参数异常，{}", e.getMessage());
-        return ApiResult.error(ResultInfo.ERROR);
     }
 
     @ExceptionHandler(value = DataAccessException.class)

@@ -20,7 +20,7 @@ public class JwtConfig {
     /**
      * jwt过期时间 单位秒(s)
      */
-    private Long expire;
+    private Integer expire;
 
     /**
      * jwt前缀
@@ -35,6 +35,6 @@ public class JwtConfig {
     /**
      * jwt过期前多久刷新 单位秒(s)
      */
-    private Long refresh;
+    private Integer refresh;
 
 }

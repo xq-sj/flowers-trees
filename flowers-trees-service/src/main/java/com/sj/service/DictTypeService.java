@@ -13,4 +13,11 @@ import com.sj.entity.DictType;
  */
 public interface DictTypeService extends IService<DictType> {
 
+    /**
+     * 根据字典编码，获取字典名字
+     *
+     * @param dictCode 字典编码
+     * @return 字典名字
+     */
+    String getDictNameByCode(String dictCode);
 }

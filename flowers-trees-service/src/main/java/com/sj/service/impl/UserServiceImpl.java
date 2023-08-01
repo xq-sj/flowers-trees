@@ -44,6 +44,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Resource
     private UserConfig userConfig;
 
+    @Resource
+    private UserMapper userMapper;
+
     @Override
     public String getAuthorities(Integer id, String username) {
         String loginUserKey = userConfig.getLoginUserKey();
@@ -76,5 +79,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String loginUserJson = JSONUtil.toJsonStr(loginUser);
         redisUtils.hset(loginUserKey, username, loginUserJson);
         return authority;
+    }
+
+    @Override
+    public Long getUserCountByPhone(String phone) {
+
+        return userMapper.getUserCountByPhone(phone);
+    }
+
+    @Override
+    public Long getUserCountByUsername(String username) {
+        return userMapper.getUserCountByUsername(username);
     }
 }

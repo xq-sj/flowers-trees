@@ -33,4 +33,39 @@ public class CommonConst {
      */
     public final static Integer FORBIDDEN = 0;
 
+    /**
+     * 是
+     */
+    public final static Integer YES = 1;
+
+    /**
+     * 否
+     */
+    public final static Integer NO = 0;
+
+    /**
+     * 女生
+     */
+    public final static Integer GIRL = 0;
+
+    /**
+     * 男生
+     */
+    public final static Integer BOY = 1;
+
+    /**
+     * 注册类型
+     */
+    public final static Integer REGISTER_TYPE = 0;
+
+    /**
+     * 登录类型
+     */
+    public final static Integer LOGIN_TYPE = 1;
+
+    /**
+     * 忘记密码类型
+     */
+    public final static Integer FORGET_TYPE = 2;
+
 }

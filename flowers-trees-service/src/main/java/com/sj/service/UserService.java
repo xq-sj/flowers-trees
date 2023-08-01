@@ -21,4 +21,20 @@ public interface UserService extends IService<User> {
      * @return 权限信息
      */
     String getAuthorities(Integer id, String username);
+
+    /**
+     * 根据手机号获取用户个数
+     *
+     * @param phone 手机号码
+     * @return 用户个数
+     */
+    Long getUserCountByPhone(String phone);
+
+    /**
+     * 根据用户名获取用户个数
+     *
+     * @param username 用户名
+     * @return 用户个数
+     */
+    Long getUserCountByUsername(String username);
 }

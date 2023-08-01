@@ -21,4 +21,19 @@ public class UserConfig {
      */
     private String loginUserKey;
 
+    /**
+     * 女生默认头像地址
+     */
+    private String girlAvatarUrl;
+
+    /**
+     * 男生默认头像地址
+     */
+    private String boyAvatarUrl;
+
+    /**
+     * 用户默认角色
+     */
+    private Integer userDefaultRole;
+
 }

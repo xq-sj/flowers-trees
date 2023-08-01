@@ -95,9 +95,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String loginUserJson = JSONUtil.toJsonStr(loginUser);
         // 将当前用户存入redis
         redisUtils.hset(userConfig.getLoginUserKey(), user.getUsername(), loginUserJson, jwtConfig.getExpire());
-//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser.getUser(), null, AuthorityUtils.commaSeparatedStringToAuthorityList(loginUser.getAuthority()));
-//        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         ApiResult<LoginUser> loginResult = ApiResult.success(ResultInfo.LOGIN_SUCCESS, loginUser);
         // 将结果返回给前端
         mineUtils.responseMessage(response, loginResult);

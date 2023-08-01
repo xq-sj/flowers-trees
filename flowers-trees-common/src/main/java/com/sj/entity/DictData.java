@@ -51,6 +51,9 @@ public class DictData implements Serializable {
     @ApiModelProperty("字典值")
     private String dictValue;
 
+    @ApiModelProperty("是否为数值")
+    private Integer isNumber;
+
     @ApiModelProperty("样式属性")
     private String cssClass;
 

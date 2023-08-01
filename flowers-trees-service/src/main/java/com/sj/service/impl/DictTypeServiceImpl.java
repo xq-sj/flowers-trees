@@ -6,6 +6,8 @@ import com.sj.mapper.DictTypeMapper;
 import com.sj.service.DictTypeService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * <p>
  * 字典类型表 服务实现类
@@ -17,4 +19,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictTypeServiceImpl extends ServiceImpl<DictTypeMapper, DictType> implements DictTypeService {
 
+    @Resource
+    private DictTypeMapper dictTypeMapper;
+
+    @Override
+    public String getDictNameByCode(String dictCode) {
+        return dictTypeMapper.getDictNameByCode(dictCode);
+    }
 }

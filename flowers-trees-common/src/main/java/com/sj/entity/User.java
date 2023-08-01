@@ -42,7 +42,7 @@ public class User implements Serializable {
     private String username;
 
     @ApiModelProperty("昵称")
-    private String nickaname;
+    private String nickname;
 
     @ApiModelProperty("密码")
     private String password;
@@ -114,4 +114,174 @@ public class User implements Serializable {
 
     @ApiModelProperty("最后修改人，用户名")
     private String updateBy;
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
+
+    public static final class UserBuilder {
+        private Integer id;
+        private String username;
+        private String nickname;
+        private String password;
+        private String phone;
+        private String email;
+        private String qq;
+        private String weChat;
+        private Integer gender;
+        private String openId;
+        private String avatar;
+        private String introduction;
+        private LocalDateTime birthday;
+        private String chineseZodiac;
+        private String constellation;
+        private LocalDateTime lastLogin;
+        private String lastIp;
+        private String registerIp;
+        private Integer status;
+        private LocalDateTime createTime;
+        private LocalDateTime updateTime;
+        private String updateBy;
+
+        private UserBuilder() {
+        }
+
+        public UserBuilder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserBuilder nickname(String nickaname) {
+            this.nickname = nickaname;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder qq(String qq) {
+            this.qq = qq;
+            return this;
+        }
+
+        public UserBuilder weChat(String weChat) {
+            this.weChat = weChat;
+            return this;
+        }
+
+        public UserBuilder gender(Integer gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public UserBuilder openId(String openId) {
+            this.openId = openId;
+            return this;
+        }
+
+        public UserBuilder avatar(String avatar) {
+            this.avatar = avatar;
+            return this;
+        }
+
+        public UserBuilder introduction(String introduction) {
+            this.introduction = introduction;
+            return this;
+        }
+
+        public UserBuilder birthday(LocalDateTime birthday) {
+            this.birthday = birthday;
+            return this;
+        }
+
+        public UserBuilder chineseZodiac(String chineseZodiac) {
+            this.chineseZodiac = chineseZodiac;
+            return this;
+        }
+
+        public UserBuilder constellation(String constellation) {
+            this.constellation = constellation;
+            return this;
+        }
+
+        public UserBuilder lastLogin(LocalDateTime lastLogin) {
+            this.lastLogin = lastLogin;
+            return this;
+        }
+
+        public UserBuilder lastIp(String lastIp) {
+            this.lastIp = lastIp;
+            return this;
+        }
+
+        public UserBuilder registerIp(String registerIp) {
+            this.registerIp = registerIp;
+            return this;
+        }
+
+        public UserBuilder status(Integer status) {
+            this.status = status;
+            return this;
+        }
+
+        public UserBuilder createTime(LocalDateTime createTime) {
+            this.createTime = createTime;
+            return this;
+        }
+
+        public UserBuilder updateTime(LocalDateTime updateTime) {
+            this.updateTime = updateTime;
+            return this;
+        }
+
+        public UserBuilder updateBy(String updateBy) {
+            this.updateBy = updateBy;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.setId(id);
+            user.setUsername(username);
+            user.setNickname(nickname);
+            user.setPassword(password);
+            user.setPhone(phone);
+            user.setEmail(email);
+            user.setQq(qq);
+            user.setWeChat(weChat);
+            user.setGender(gender);
+            user.setOpenId(openId);
+            user.setAvatar(avatar);
+            user.setIntroduction(introduction);
+            user.setBirthday(birthday);
+            user.setChineseZodiac(chineseZodiac);
+            user.setConstellation(constellation);
+            user.setLastLogin(lastLogin);
+            user.setLastIp(lastIp);
+            user.setRegisterIp(registerIp);
+            user.setStatus(status);
+            user.setCreateTime(createTime);
+            user.setUpdateTime(updateTime);
+            user.setUpdateBy(updateBy);
+            return user;
+        }
+    }
 }
